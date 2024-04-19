@@ -13,14 +13,15 @@ async function main() {
         await loginConfig.initialize();
         await loginConfig.validate();
 
-        // login to Azure CLI
-        var cliLogin = new AzureCliLogin(loginConfig);
-        await cliLogin.login();
 
         //login to Azure PowerShell
         if (loginConfig.enableAzPSSession) {
             var psLogin: AzPSLogin = new AzPSLogin(loginConfig);
             await psLogin.login();
+        } else  {
+            // login to Azure CLI
+            var cliLogin = new AzureCliLogin(loginConfig);
+            await cliLogin.login();
         }
     }
     catch (error) {
